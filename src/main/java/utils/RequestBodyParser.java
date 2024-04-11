@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class QueryStringParser {
+public class RequestBodyParser {
 
-    private QueryStringParser() {
+    private RequestBodyParser() {
     }
 
     private static final String PARAMETER_SEPARATOR = "&";

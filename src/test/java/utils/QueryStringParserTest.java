@@ -11,12 +11,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class QueryStringParserTest {
 
     @Test
-    void path를_빋아_queryString에_해당하는_부분을_key_value_형태의_Map으로_반환한다() {
+    void queryString_형태의_HTTP_Body를_받아_해당하는_부분을_key_value_형태의_Map으로_반환한다() {
         // given
-        final String url = "/user/create?userId=gooddino&password=dino11&name=dino&email=dino.shin@kakaocorp.com";
+        final String url = "userId=gooddino&password=dino11&name=dino&email=dino.shin@kakaocorp.com";
 
         // when
-        Map<String, String> parsed = QueryStringParser.parse(url);
+        Map<String, String> parsed = RequestBodyParser.parse(url);
 
         // then
         assertThat(parsed).containsEntry("userId", "gooddino")
