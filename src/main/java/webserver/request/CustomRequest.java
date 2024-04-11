@@ -4,6 +4,8 @@ import utils.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -22,17 +24,22 @@ public class CustomRequest {
         this.body = body;
     }
 
-    public static CustomRequest makeRequest(final BufferedReader bufferedReader) throws IOException {
-        final String firstLine = bufferedReader.readLine();
-        final CustomHeaders customHeaders = readHeaders(bufferedReader);
+    public static CustomRequest makeRequest(final InputStream in) throws IOException {
+        try {
+            final InputStreamReader inputStreamReader = new InputStreamReader(in);
+            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            final String firstLine = bufferedReader.readLine();
+            final CustomHeaders customHeaders = readHeaders(bufferedReader);
+            final CustomBody customBody = readBodyIfPresent(bufferedReader, customHeaders);
 
-        final CustomBody customBody = readBodyIfPresent(bufferedReader, customHeaders);
-
-        return new CustomRequest(
-                CustomRequestLine.from(firstLine),
-                customHeaders,
-                customBody
-        );
+            return new CustomRequest(
+                    CustomRequestLine.from(firstLine),
+                    customHeaders,
+                    customBody
+            );
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
     private static CustomHeaders readHeaders(BufferedReader bufferedReader) {
