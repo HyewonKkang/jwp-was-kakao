@@ -10,8 +10,8 @@ public class RequestBodyParser {
     }
 
     private static final String PARAMETER_SEPARATOR = "&";
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
+    private static final int KEY_INDEX = 0;
+    private static final int VALUE_INDEX = 1;
     private static final String NAME_VALUE_SEPARATOR = "=";
 
     public static Map<String, String> parse(final String query) {
@@ -21,6 +21,6 @@ public class RequestBodyParser {
         final String[] params = query.split(PARAMETER_SEPARATOR);
         return Arrays.stream(params)
                 .map(param -> param.split(NAME_VALUE_SEPARATOR))
-                .collect(Collectors.toMap(pair -> pair[ZERO], pair -> pair[ONE], (a, b) -> b));
+                .collect(Collectors.toMap(pair -> pair[KEY_INDEX], pair -> pair[VALUE_INDEX], (a, b) -> b));
     }
 }

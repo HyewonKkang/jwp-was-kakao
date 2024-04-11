@@ -1,6 +1,7 @@
 package webserver;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum CustomHttpExtension {
     HTML(".html", "text/html;charset=utf-8", "templates"),
@@ -22,18 +23,20 @@ public enum CustomHttpExtension {
     }
 
     public static String findContentType(final String path) {
-        return Arrays.stream(CustomHttpExtension.values())
-                .filter(customHttpExtension -> path.endsWith(customHttpExtension.extension))
-                .findFirst()
+        return findExtension(path)
                 .map(customHttpExtension -> customHttpExtension.contentType)
                 .orElse(DEFALUT_CONTENT_TYPE);
     }
 
     public static String findDirectory(final String path) {
-        return Arrays.stream(CustomHttpExtension.values())
-                .filter(customHttpExtension -> path.endsWith(customHttpExtension.extension))
-                .findFirst()
+        return findExtension(path)
                 .map(customHttpExtension -> customHttpExtension.directory)
                 .orElse(STATIC_DIRECTORY_PATH);
+    }
+
+    private static Optional<CustomHttpExtension> findExtension(final String path) {
+        return Arrays.stream(CustomHttpExtension.values())
+                .filter(customHttpExtension -> path.endsWith(customHttpExtension.extension))
+                .findFirst();
     }
 }

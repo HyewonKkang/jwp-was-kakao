@@ -3,8 +3,8 @@ package webserver.request;
 public class CustomRequestLine {
 
     private static final String FIRST_LINE_SEPARATOR = " ";
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
+    private static final int METHOD_STRING_INDEX = 0;
+    private static final int PATH_STRING_INDEX = 1;
 
     private final CustomMethod method;
     private final CustomPath path;
@@ -16,7 +16,7 @@ public class CustomRequestLine {
 
     public static CustomRequestLine from(final String firstLine) {
         final String[] split = firstLine.split(FIRST_LINE_SEPARATOR);
-        return new CustomRequestLine(CustomMethod.find(split[ZERO]), new CustomPath(split[ONE]));
+        return new CustomRequestLine(CustomMethod.find(split[METHOD_STRING_INDEX]), new CustomPath(split[PATH_STRING_INDEX]));
     }
 
     public boolean checkMethod(final CustomMethod method) {
