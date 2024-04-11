@@ -1,12 +1,14 @@
 package webserver;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum CustomHttpExtension {
     HTML(".html", "text/html;charset=utf-8", "templates"),
     CSS(".css", "text/css", "static"),
     JS(".js", "text/javascript", "static"),
-    ICO(".ico", "image/svg+xml", "templates"),;
+    ICO(".ico", "image/svg+xml", "templates"),
+    ;
 
     private static final String DEFALUT_CONTENT_TYPE = "text/html;charset=utf-8";
     private static final String STATIC_DIRECTORY_PATH = "static";
@@ -30,10 +32,14 @@ public enum CustomHttpExtension {
     }
 
     public static String findDirectory(final String path) {
-        return Arrays.stream(CustomHttpExtension.values())
-                .filter(customHttpExtension -> path.endsWith(customHttpExtension.extension))
-                .findFirst()
+        return findExtension(path)
                 .map(customHttpExtension -> customHttpExtension.directory)
                 .orElse(STATIC_DIRECTORY_PATH);
+    }
+
+    private static Optional<CustomHttpExtension> findExtension(final String path) {
+        return Arrays.stream(CustomHttpExtension.values())
+                .filter(customHttpExtension -> path.endsWith(customHttpExtension.extension))
+                .findFirst();
     }
 }

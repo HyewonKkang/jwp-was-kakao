@@ -51,14 +51,15 @@ public class RequestHandler implements Runnable {
         try (
                 final InputStream in = connection.getInputStream();
                 final OutputStream out = connection.getOutputStream();
-                final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+                final InputStreamReader inputStreamReader = new InputStreamReader(in);
+                final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 final DataOutputStream dos = new DataOutputStream(out)
         ) {
             final CustomRequest customRequest = CustomRequest.makeRequest(bufferedReader);
             byte[] body = DEFAULT_PAGE_MESSAGE.getBytes();
 
             if (customRequest.isMethodEqual(CustomMethod.GET)) {
-                body = makeBody(customRequest);
+                body = loadResponseBody(customRequest);
             }
             if (customRequest.isMethodEqual(CustomMethod.POST) && isCreateUserRequest(customRequest)) {
                 redirectResponse(dos, body);
@@ -94,7 +95,7 @@ public class RequestHandler implements Runnable {
         return true;
     }
 
-    private byte[] makeBody(final CustomRequest customRequest) throws Exception {
+    private byte[] loadResponseBody(final CustomRequest customRequest) throws Exception {
         if (customRequest.isPathEqual(DEFALUT_PAGE_PATH)) {
             return FileIoUtils.loadFileFromClasspath(DEFAULT_FILE_NAME);
         }
