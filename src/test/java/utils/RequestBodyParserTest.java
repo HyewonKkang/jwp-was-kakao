@@ -21,6 +21,6 @@ class RequestBodyParserTest {
         assertThat(parsed).containsEntry("userId", "gooddino")
                 .containsEntry("password", "dino11")
                 .containsEntry("name", "dino")
-                .containsEntry("email", "helen@kakaocorp.com");
+                .containsEntry("email", "dino.shin@kakaocorp.com");
     }
 }
