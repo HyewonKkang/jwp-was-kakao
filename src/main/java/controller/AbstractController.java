@@ -6,7 +6,7 @@ import webserver.response.CustomResponse;
 
 abstract class AbstractController implements Controller {
     @Override
-    public void service(CustomRequest request, CustomResponse response) {
+    public void service(CustomRequest request, CustomResponse response) throws Exception {
         if (isPost(request)) {
             doPost(request, response);
             return;
@@ -18,7 +18,7 @@ abstract class AbstractController implements Controller {
         return request.isMethodEqual(CustomMethod.POST);
     }
 
-    protected abstract void doGet(CustomRequest request, CustomResponse response);
+    protected abstract void doGet(CustomRequest request, CustomResponse response) throws Exception;
 
     protected abstract void doPost(CustomRequest request, CustomResponse response);
 }

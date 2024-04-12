@@ -62,10 +62,6 @@ public class CustomRequest {
         return this.line.checkMethod(customMethod);
     }
 
-    public boolean isPathStartingWith(final String path) {
-        return this.line.isPathStartingWith(path);
-    }
-
     public Map<String, String> getBody() {
         return body.getBody();
     }
@@ -80,5 +76,13 @@ public class CustomRequest {
 
     public String findFilePath() {
         return line.getFilePath();
+    }
+
+    public String findPath() {
+        return line.getPath();
+    }
+
+    public CustomMethod findMethod() {
+        return line.getMethod();
     }
 }

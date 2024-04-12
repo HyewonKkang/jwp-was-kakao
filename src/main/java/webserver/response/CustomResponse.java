@@ -22,7 +22,7 @@ public class CustomResponse {
         responseHeader.redirectHeader(path);
     }
 
-    public void standardResponse(final byte[] body, final CustomRequest customRequest) {
+    public void responseOK(final byte[] body, final CustomRequest customRequest) {
         responseHeader.response200Header(body.length, customRequest);
         responseBody.writeBody(body);
     }

@@ -38,4 +38,12 @@ public class CustomRequestLine {
     public String getFilePath() {
         return this.path.getDirectory() + this.path.getValue();
     }
+
+    public String getPath() {
+        return this.path.getValue();
+    }
+
+    public CustomMethod getMethod() {
+        return method;
+    }
 }
