@@ -1,5 +1,6 @@
 package webserver;
 
+import controller.SignUpController;
 import db.DataBase;
 import model.User;
 import org.slf4j.Logger;
@@ -55,7 +56,8 @@ public class RequestHandler implements Runnable {
                 body = loadResponseBody(customRequest);
             }
             if (customRequest.isMethodEqual(CustomMethod.POST) && isCreateUserRequest(customRequest)) {
-                customResponse.sendRedirect(DEFALUT_PAGE_PATH);
+                SignUpController signUpController = new SignUpController();
+                signUpController.service(customRequest, customResponse);
                 return;
             }
             customResponse.standardResponse(body, customRequest);
@@ -65,17 +67,7 @@ public class RequestHandler implements Runnable {
     }
 
     private boolean isCreateUserRequest(final CustomRequest customRequest) {
-        return customRequest.isPathStartingWith(CREATE_USER_PATH) && createUser(customRequest);
-    }
-
-    private boolean createUser(final CustomRequest customRequest) {
-        final Map<String, String> queryParams = customRequest.getBody();
-        final User user = User.of(queryParams);
-        if (DataBase.findUserById(user.getUserId()).isPresent()) {
-            return false;
-        }
-        DataBase.addUser(user);
-        return true;
+        return customRequest.isPathStartingWith(CREATE_USER_PATH);
     }
 
     private byte[] loadResponseBody(final CustomRequest customRequest) throws Exception {
