@@ -55,7 +55,7 @@ public class RequestHandler implements Runnable {
                 body = loadResponseBody(customRequest);
             }
             if (customRequest.isMethodEqual(CustomMethod.POST) && isCreateUserRequest(customRequest)) {
-                customResponse.sendRedirect(body);
+                customResponse.sendRedirect(DEFALUT_PAGE_PATH);
                 return;
             }
             customResponse.standardResponse(body, customRequest);
