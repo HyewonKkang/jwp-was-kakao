@@ -12,20 +12,15 @@ public class SignUpController extends AbstractController {
 
     @Override
     protected void doPost(CustomRequest request, CustomResponse response) {
-        if (createUser(request)) {
-            response.sendRedirect("/index.html");
-            return;
-        }
-        // TODO: 회원가입 실패
+        createUser(request);
+        response.sendRedirect("/index.html");
     }
 
 
-    private boolean createUser(final CustomRequest customRequest) {
+    private void createUser(final CustomRequest customRequest) {
         final User user = User.of(customRequest.getBody());
-        if (DataBase.findUserById(user.getUserId()).isPresent()) {
-            return false;
+        if (DataBase.findUserById(user.getUserId()).isEmpty()) {
+            DataBase.addUser(user);
         }
-        DataBase.addUser(user);
-        return true;
     }
 }
