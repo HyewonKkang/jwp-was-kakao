@@ -1,9 +1,7 @@
 package webserver.response;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import webserver.RequestHandler;
 import webserver.request.CustomRequest;
+import webserver.Cookie;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,7 +44,7 @@ public class CustomResponse {
         this.writeBody(body);
     }
 
-    public void writeResponseHeaders() {
+    public void writeResponseHeaders() throws IOException {
         final Map<String, String> headers = responseHeader.getHeaders();
         headers.forEach((key, value) -> {
             try {
@@ -68,5 +66,9 @@ public class CustomResponse {
     public void writeBody(byte[] body) throws IOException {
         dos.write(body, OFFSET_ZERO, body.length);
         dos.flush();
+    }
+
+    public void setCookie(final Cookie cookie) {
+        this.responseHeader.setCookie(cookie);
     }
 }
