@@ -1,6 +1,7 @@
 package webserver.request;
 
 import utils.IOUtils;
+import webserver.Cookie;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -84,5 +85,9 @@ public class CustomRequest {
 
     public CustomMethod findMethod() {
         return line.getMethod();
+    }
+
+    public Cookie getCookieByName(final String name) {
+        return headers.getCookie(name);
     }
 }

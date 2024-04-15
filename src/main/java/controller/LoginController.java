@@ -2,10 +2,12 @@ package controller;
 
 import db.DataBase;
 import model.User;
+import webserver.Cookie;
 import webserver.request.CustomRequest;
 import webserver.response.CustomResponse;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class LoginController extends AbstractController {
 
@@ -17,6 +19,9 @@ public class LoginController extends AbstractController {
     protected void doPost(CustomRequest request, CustomResponse response) throws Exception {
         boolean loginSuccess = loginSuccess(request);
         if (loginSuccess) {
+            if (request.getCookieByName("JSESSIONID") == null) { // TODO: FIX
+                response.setCookie(new Cookie("JSESSIONID", UUID.randomUUID().toString()));
+            }
             response.sendRedirect("/index.html");
             return;
         }
