@@ -14,7 +14,7 @@ public class LoginController extends AbstractController {
     }
 
     @Override
-    protected void doPost(CustomRequest request, CustomResponse response) {
+    protected void doPost(CustomRequest request, CustomResponse response) throws Exception {
         boolean loginSuccess = loginSuccess(request);
         if (loginSuccess) {
             response.sendRedirect("/index.html");

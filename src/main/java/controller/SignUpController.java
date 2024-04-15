@@ -11,7 +11,7 @@ public class SignUpController extends AbstractController {
     }
 
     @Override
-    protected void doPost(CustomRequest request, CustomResponse response) {
+    protected void doPost(CustomRequest request, CustomResponse response) throws Exception {
         createUser(request);
         response.sendRedirect("/index.html");
     }

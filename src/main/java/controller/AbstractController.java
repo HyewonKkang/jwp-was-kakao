@@ -20,5 +20,5 @@ abstract class AbstractController implements Controller {
 
     protected abstract void doGet(CustomRequest request, CustomResponse response) throws Exception;
 
-    protected abstract void doPost(CustomRequest request, CustomResponse response);
+    protected abstract void doPost(CustomRequest request, CustomResponse response) throws Exception;
 }
