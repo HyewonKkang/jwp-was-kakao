@@ -1,9 +1,6 @@
 package webserver.dispatcher;
 
-import controller.Controller;
-import controller.DefaultController;
-import controller.LoginController;
-import controller.SignUpController;
+import controller.*;
 import webserver.request.CustomMethod;
 import webserver.request.CustomRequest;
 
@@ -19,10 +16,12 @@ public class RequestDispatcher {
                 , new SignUpController());
         map.put(new RequestBranch("/user/login", CustomMethod.POST)
                 , new LoginController());
+        map.put(new RequestBranch("/user/list", CustomMethod.GET)
+                , new ListUserController());
         requestMap = new ControllerMap(map);
     }
 
-    public static Controller dispatch(CustomRequest request) {
+    public static Controller dispatch(final CustomRequest request) {
         Controller controller = requestMap.getController(request);
         if (controller != null) {
             return controller;

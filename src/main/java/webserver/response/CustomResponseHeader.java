@@ -14,8 +14,7 @@ public class CustomResponseHeader {
 
     private final Map<String, String> headers = new HashMap<>();
 
-
-    public void addHeader(String key, String value) {
+    public void addHeader(final String key, final String value) {
         headers.put(key, value);
     }
 

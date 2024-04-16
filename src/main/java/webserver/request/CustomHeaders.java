@@ -13,11 +13,9 @@ public class CustomHeaders {
     private static final int KEY_INDEX = 0;
 
     private final Map<String, String> elements;
-    private final List<Cookie> cookies;
 
     public CustomHeaders(final List<String> headersInput) {
         this.elements = parseHeaders(headersInput);
-        this.cookies = getCookies();
     }
 
     private Map<String, String> parseHeaders(final List<String> headersInput) {
@@ -26,19 +24,12 @@ public class CustomHeaders {
                 .collect(Collectors.toMap(split -> split[KEY_INDEX], split -> split[VALUE_INDEX]));
     }
 
-    private List<Cookie> getCookies() {
-        return elements.entrySet().stream()
+    public Cookie getCookie() {
+        return Cookie.from(elements.entrySet().stream()
                 .filter(entry -> entry.getKey().equals("Cookie"))
-                .map(entry -> entry.getValue().split("="))
-                .map(it -> new Cookie(it[0], it[1]))
-                .collect(Collectors.toList());
-    }
-
-    public Cookie getCookie(final String key) {
-        return cookies.stream()
-                .filter(cookie -> cookie.getName().equals(key))
+                .map(Map.Entry::getValue)
                 .findFirst()
-                .orElse(null);
+                .orElse(""));
     }
 
     public Map<String, String> getElements() {

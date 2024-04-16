@@ -1,7 +1,7 @@
 package webserver.response;
 
-import webserver.request.CustomRequest;
 import webserver.Cookie;
+import webserver.request.CustomRequest;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,7 +12,6 @@ public class CustomResponse {
 
     private static final String CRLF = "\r\n";
     private static final String HTTP_VERSION = "HTTP/1.1";
-
     private static final String DEFAULT_DELIMITER = " ";
     private static final String KEY_VALUE_DELIMITER = ": ";
     private static final int OFFSET_ZERO = 0;
@@ -44,7 +43,7 @@ public class CustomResponse {
         this.writeBody(body);
     }
 
-    public void writeResponseHeaders() throws IOException {
+    public void writeResponseHeaders() {
         final Map<String, String> headers = responseHeader.getHeaders();
         headers.forEach((key, value) -> {
             try {
@@ -55,15 +54,15 @@ public class CustomResponse {
         });
     }
 
-    private String createContext(String key, String value) {
+    private String createContext(final String key, final String value) {
         return key + KEY_VALUE_DELIMITER + value + CRLF;
     }
 
-    private String createHeaderStatus(CustomResponseStatus status) {
+    private String createHeaderStatus(final CustomResponseStatus status) {
         return String.join(DEFAULT_DELIMITER, HTTP_VERSION, status.getStatusCode() + "", status.getStatusMessage(), CRLF);
     }
 
-    public void writeBody(byte[] body) throws IOException {
+    public void writeBody(final byte[] body) throws IOException {
         dos.write(body, OFFSET_ZERO, body.length);
         dos.flush();
     }
