@@ -16,6 +16,8 @@ public class RequestDispatcher {
                 , new SignUpController());
         map.put(new RequestBranch("/user/login", CustomMethod.POST)
                 , new LoginController());
+        map.put(new RequestBranch("/user/login", CustomMethod.GET)
+                , new LoginController());
         map.put(new RequestBranch("/user/list", CustomMethod.GET)
                 , new ListUserController());
         requestMap = new ControllerMap(map);

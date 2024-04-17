@@ -4,7 +4,6 @@ import utils.FileIoUtils;
 import webserver.request.CustomRequest;
 import webserver.response.CustomResponse;
 
-// TODO: FIX
 public class DefaultController extends AbstractController {
     private static final String DEFAULT_FILE_NAME = "templates/index.html";
     private static final String DEFAULT_PAGE_PATH = "/";

@@ -18,13 +18,11 @@ public class ListUserController extends AbstractController {
     protected void doGet(CustomRequest request, CustomResponse response) throws Exception {
         final Session session = request.getSession();
         final boolean logined = (boolean) Optional.ofNullable(session.getAttribute("logined")).orElse(false);
-
-        if (!logined) {
-            response.sendRedirect("/user/login.html");
+        if (logined) {
+            response.responseOK(renderUserListTemplate().getBytes(), request);
             return;
         }
-
-        response.responseOK(renderUserListTemplate().getBytes(), request);
+        response.sendRedirect("/user/login.html");
     }
 
     @Override

@@ -10,7 +10,7 @@ public class RequestBranch {
     private final CustomMethod method;
 
     public RequestBranch(String path, CustomMethod method) {
-        this.path = path;
+        this.path = path.split("\\.")[0];
         this.method = method;
     }
 
