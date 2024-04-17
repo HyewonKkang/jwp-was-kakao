@@ -3,6 +3,7 @@ package webserver;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Cookie {
@@ -48,5 +49,18 @@ public class Cookie {
         return cookies.entrySet().stream()
                 .map(entry -> entry.getKey() + MAP_DELIMITER + entry.getValue())
                 .collect(Collectors.joining(COOKIE_DELIMITER)) + DEFAULT_PATH;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cookie cookie = (Cookie) o;
+        return Objects.equals(cookies, cookie.cookies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cookies);
     }
 }

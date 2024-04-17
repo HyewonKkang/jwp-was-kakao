@@ -24,7 +24,7 @@ public class SessionManager {
                 .orElseThrow(() -> new IllegalArgumentException("세션을 찾을 수 없습니다."));
     }
 
-    public void remove(final String id) {
+    public static void remove(final String id) {
         SESSIONS.remove(id);
     }
 

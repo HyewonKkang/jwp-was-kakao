@@ -54,14 +54,6 @@ public class CustomResponse {
         });
     }
 
-    private String createContext(final String key, final String value) {
-        return key + KEY_VALUE_DELIMITER + value + CRLF;
-    }
-
-    private String createHeaderStatus(final CustomResponseStatus status) {
-        return String.join(DEFAULT_DELIMITER, HTTP_VERSION, status.getStatusCode() + "", status.getStatusMessage(), CRLF);
-    }
-
     public void writeBody(final byte[] body) throws IOException {
         dos.write(body, OFFSET_ZERO, body.length);
         dos.flush();
@@ -69,5 +61,13 @@ public class CustomResponse {
 
     public void setCookie(final Cookie cookie) {
         this.responseHeader.setCookie(cookie);
+    }
+
+    private String createContext(final String key, final String value) {
+        return key + KEY_VALUE_DELIMITER + value + CRLF;
+    }
+
+    private String createHeaderStatus(final CustomResponseStatus status) {
+        return String.join(DEFAULT_DELIMITER, HTTP_VERSION, status.getStatusCode() + "", status.getStatusMessage(), CRLF);
     }
 }
