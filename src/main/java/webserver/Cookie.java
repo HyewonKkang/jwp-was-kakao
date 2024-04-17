@@ -9,6 +9,7 @@ public class Cookie {
 
     private static final String MAP_DELIMITER = "=";
     private static final String COOKIE_DELIMITER = "; ";
+    private static final String DEFAULT_PATH = "; Path=/";
 
     private final Map<String, String> cookies;
 
@@ -46,6 +47,6 @@ public class Cookie {
     public String toString() {
         return cookies.entrySet().stream()
                 .map(entry -> entry.getKey() + MAP_DELIMITER + entry.getValue())
-                .collect(Collectors.joining(COOKIE_DELIMITER));
+                .collect(Collectors.joining(COOKIE_DELIMITER)) + DEFAULT_PATH;
     }
 }

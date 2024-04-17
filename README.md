@@ -42,7 +42,7 @@
   * [x] 회원가입한 사용자로 로그인할 수 있어야 한다.
   * [x] 로그인 성공 시 쿠키를 생성하고 응답할 수 있다.
   * [x] Cookie 클래스를 추가하고 Request Header에 JSESSIONID가 없으면 Response Header에 반환해준다.
-  * [ ] Set-Cookie 설정시 모든 요청에 대해 Cookie 처리가 가능하도록 Path 설정 값을 /로 설정한다.
+  * [x] Set-Cookie 설정시 모든 요청에 대해 Cookie 처리가 가능하도록 Path 설정 값을 /로 설정한다.
 * [x] 템플릿 엔진 활용하기
     * [x] 로그인 상태에서 /user/list 접근 시 사용자 목록을 출력한다.
     * [x] 비로그인 상태서는 로그인 페이지로 이동한다.
